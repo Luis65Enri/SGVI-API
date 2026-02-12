@@ -8,10 +8,6 @@ const Registro = sequelize.define('Registro', {
         type: DataTypes.ENUM('Entrada', 'Salida'),
         allowNull: false,
     },
-    motorista: {
-        type: DataTypes.STRING(100),
-        allowNull: false,
-    },
     fecha: {
         type: DataTypes.DATEONLY,
         defaultValue: DataTypes.NOW,

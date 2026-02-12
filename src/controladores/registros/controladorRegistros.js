@@ -16,13 +16,20 @@ exports.getRegistros = async (req, res) => {
         const registros = await Registro.findAll({
             where: donde,
             include: [
-                { model: Vehiculo, as: 'vehiculo', attributes: ['marca', 'modelo', 'placa'] },
-                { model: Motorista, as: 'conductor', attributes: ['primerNombre', 'primerApellido'] }
+                {
+                    model: Vehiculo,
+                    attributes: ['marca', 'modelo', 'placa']
+                },
+                {
+                    model: Motorista,
+                    attributes: ['primerNombre', 'primerApellido']
+                }
             ],
-            order: [['fecha', 'DESC'], ['hora', 'DESC']]
+            order: [['createdAt', 'DESC']]
         });
         res.json(registros);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Error al filtrar registros' });
     }
 };
@@ -35,6 +42,7 @@ exports.createRegistro = async (req, res) => {
         const registro = await Registro.create(req.body);
         res.status(201).json(registro);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Error al crear el registro de entrada/salida' });
     }
 };

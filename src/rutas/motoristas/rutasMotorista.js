@@ -5,11 +5,34 @@ const motoristasController = require('../../controladores/motoristas/controlador
 
 // Reglas de validación 
 const motoristaValidationRules = [
-    body('primerNombre').notEmpty().withMessage('El primer nombre es obligatorio'),
-    body('primerApellido').notEmpty().withMessage('El primer apellido es obligatorio'),
-    body('dni').notEmpty().withMessage('El DNI es obligatorio'),
+    body('primerNombre')
+        .trim()
+        .notEmpty().withMessage('El primer nombre es obligatorio')
+        .isLength({ max: 50 }).withMessage('Máximo 50 caracteres'),
+    body('segundoNombre')
+        .optional({ checkFalsy: true })
+        .trim(),
+    body('primerApellido')
+        .trim()
+        .notEmpty().withMessage('El primer apellido es obligatorio')
+        .isLength({ max: 50 }).withMessage('Máximo 50 caracteres'),
+    body('segundoApellido')
+        .optional({ checkFalsy: true })
+        .trim(),
+    body('dni')
+        .trim()
+        .notEmpty().withMessage('El DNI es obligatorio')
+        .isLength({ max: 20 }).withMessage('El DNI no puede exceder los 20 caracteres'),
+    body('licencia')
+        .optional({ checkFalsy: true })
+        .trim(),
+    body('telefono')
+        .optional({ checkFalsy: true })
+        .trim(),
+    body('estado')
+        .notEmpty().withMessage('El estado es obligatorio')
+        .isIn(['Activo', 'Inactivo']).withMessage('Estado no válido')
 ];
-
 const motoristaIdValidation = [
     query('id').isInt().withMessage('El ID debe ser un número entero')
 ];

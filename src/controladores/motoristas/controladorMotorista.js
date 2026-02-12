@@ -6,7 +6,7 @@ const db = require('../../configuraciones/db');
 exports.getMotoristas = async (req, res) => {
     try {
         const motoristas = await Motorista.findAll({
-            where: { estado: true }
+            where: { estado: 'Activo' }
         });
         res.json(motoristas);
     } catch (error) {
